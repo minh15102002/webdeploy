@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Teelab</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <%- include('./block/style.ejs') %>
+        <style>
+            a:hover {
+                text-decoration: none;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./block/header.ejs') %>
+        <!-- Page Header Start -->
+        <div class="container-fluid bg-secondary mb-5">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Danh Mục</h1>
+                <div class="d-inline-flex">
+                    <p class="m-0"><a style="color: black;" href="/">Trang Chủ</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0">Thương Hiệu</p>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        <div style="margin-bottom: 100px;margin-top: 40px;" class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Sidebar danh mục sản phẩm -->
+                    <h5 style="font-family: sans-serif;">Thương Hiệu</h5>
+                    <div class="sidebar">
+                        <% brands.forEach(function(item){ %>
+                            <ul class="list-group">
+                                <li class="list-group-item"><a style="color: black;" href="/brands/<%= item.id %>">
+                                        <%= item.name %>
+                                    </a></li>
+                            </ul>
+                            <% }); %>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="container">
+                        <div style="margin-top: 50px;" class="row" id="show_product">
+                            <div class="row px-xl-5 pb-3">
+                                <% if(brand_id==1) { %>
+                                    <img style="width: 100%;" src="/images/casio.png" alt="">
+                                    <% } %>
+                                        <% if(brand_id==2) { %>
+                                            <img style="width: 100%;" src="/images/citizen.png" alt="">
+                                            <% } %>
+                                                <% if(brand_id==3) { %>
+                                                    <img style="width: 100%;" src="/images/doxa.png" alt="">
+                                                    <% } %>
+                                                        <% if(brand_id==4) { %>
+                                                            <img style="width: 100%;" src="/images/koi.png" alt="">
+                                                            <% } %>
+                                                                <% if(brand_id==5) { %>
+                                                                    <img style="width: 100%;" src="/images/tissot.png"
+                                                                        alt="">
+                                                                    <% } %>
+                                                                        <% products.forEach(function(item){ %>
+                                                                            <div style="margin-top: 40px;"
+                                                                                class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                                                                                <div
+                                                                                    class="card product-item border-0 mb-4">
+                                                                                    <div
+                                                                                        class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                                                                        <img class="img-fluid w-100"
+                                                                                            src="<%= item.image %>"
+                                                                                            alt="">
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                                                                        <h6 class="text-truncate mb-3">
+                                                                                            <%= item.name %>
+                                                                                        </h6>
+                                                                                        <div
+                                                                                            class="d-flex justify-content-center">
+                                                                                            <h6>
+                                                                                                <% item.price=item.price.toLocaleString('vi-VN')
+                                                                                                    %>
+                                                                                                    <%= item.price %> đ
+                                                                                            </h6>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div style="margin: auto;"
+                                                                                        class="card-footer d-flex justify-content-between bg-light border">
+                                                                                        <a href="/detail/<%= item.id %>"
+                                                                                            class="btn btn-sm text-dark p-0"><i
+                                                                                                class="fas fa-eye text-primary mr-1"></i>Xem
+                                                                                            ngay</a>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <% }); %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <ul class="pagination pagination-lg">
+                            <% for (let i=1; i <=total_page; i++) { %>
+                                <% if (i===current_page) { %>
+                                    <li class="page-item active"><a class="page-link"
+                                            href="/brands/<%= brand_id %>?page=<%= i %>">
+                                            <%= i %>
+                                        </a></li>
+                                    <% } else { %>
+                                        <li class="page-item"><a class="page-link"
+                                                href="/brands/<%= brand_id %>?page=<%= i %>">
+                                                <%= i %>
+                                            </a></li>
+                                        <% } %>
+                                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('./block/footer.ejs') %>
+            <%- include('./block/script.ejs') %>
+</body>
+
+</html>

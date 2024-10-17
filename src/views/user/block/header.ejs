@@ -1,0 +1,167 @@
+<!-- Topbar Start -->
+<style>
+    .product__hover li:hover button {
+        background: #ca1515;
+    }
+
+    .product__hover li:hover button span {
+        color: #ffffff;
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+
+    .product__hover li button {
+        font-size: 18px;
+        color: #111111;
+        display: block;
+        height: 45px;
+        width: 45px;
+        background: #ffffff;
+        line-height: 48px;
+        text-align: center;
+        border-radius: 50%;
+        -webkit-transition: all, 0.5s;
+        -o-transition: all, 0.5s;
+        transition: all, 0.5s;
+    }
+
+    .product__hover li button span {
+        position: relative;
+        -webkit-transform: rotate(0);
+        -ms-transform: rotate(0);
+        transform: rotate(0);
+        -webkit-transition: all, 0.3s;
+        -o-transition: all, 0.3s;
+        transition: all, 0.3s;
+        display: inline-block;
+    }
+
+    .dropdown {
+        background-color: white;
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row align-items-center py-3 px-xl-5" style="background-color: #f2dede;">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a href="/" class="text-decoration-none">
+                <img width="200px" src="/assets/img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="col-lg-6 col-6 text-left">
+            <form action="/search" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nhập sản phẩm..." name="product_name">
+                    <div class="input-group-append">
+                        <span class="input-group-text bg-transparent text-primary">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-6 text-right">
+
+            <a href="/cart">
+                <span class="badge">
+                    <% let total=0; %>
+                        <% for (let i=0; i < cart.length; i++) { let sum=cart[i].price * cart[i].quantity; total +=sum;
+                            } %>
+                            <% total=total.toLocaleString('vi-VN') %>
+                                <%= total %> đ
+                </span>
+                <i style="font-size: 30px;" class="fas fa-shopping-cart text-primary"></i>
+                <span class="badge">
+                    <%= cart.length %>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div class="container-fluid">
+    <div class="row border-top px-xl-5">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                <a href="" class=" text-decoration-none d-block d-lg-none">
+                    <img width="100px" src="assets/img/logo.png" alt="">
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav" style="margin: auto;">
+                        <a href="/" class="nav-item nav-link">Trang Chủ</a>
+                        <a href="/categories/1" class="nav-item nav-link">Nam</a>
+                        <a href="/categories/2" class="nav-item nav-link">Nữ</a>
+                        <a href="/categories/3" class="nav-item nav-link">Cặp Đôi</a>
+                        <li style="margin-top: 20px;margin-right: 20px;margin-left: 10px;"
+                            class="nav-item navbar-link dropdown">
+                            <a style="color: #1C1C1C;">Thương Hiệu</a>
+                            <div class="dropdown-content">
+                                <a href="/brands/1">Casio</a>
+                                <a href="/brands/2">Citizen</a>
+                                <a href="/brands/3">Doxa</a>
+                                <a href="/brands/4">KOI</a>
+                                <a href="/brands/5">Tissot</a>
+                            </div>
+                        </li>
+                        <li style="margin-top: 20px;" class="nav-item navbar-link dropdown">
+                            <a style="color: #1C1C1C;">Account</a>
+                            <div class="dropdown-content">
+                                <% if(!UserId) { %>
+                                    <a href="/login">Đăng Nhập</a>
+                                    <a href="/register">Đăng Ký</a>
+                                    <% } else { %>
+                                        <a href="/logout">Đăng Xuất</a>
+                                        <% } %>
+                            </div>
+                        </li>
+                        <% if(UserId) { %>
+                            <li style="margin-top: 20px;margin-right: 20px;margin-left: 20px;"
+                                class="nav-item navbar-link dropdown">
+                                <a style="color: #1C1C1C;">Đơn Hàng</a>
+                                <div class="dropdown-content">
+                                    <a href="/order/<%= UserId %>">Chờ Xác Nhận</a>
+                                    <a href="/orderShip/<%= UserId %>">Đang Giao</a>
+                                    <a href="/orderComplete/<%= UserId %>">Đã Nhận</a>
+                                    <a href="/orderCancel/<%= UserId %>">Đã Hủy</a>
+                                </div>
+                            </li>
+                            <% } %>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Navbar End -->

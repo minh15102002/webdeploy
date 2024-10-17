@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Teelab</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <%- include('./block/style.ejs') %>
+</head>
+
+<body>
+    <%- include('./block/header.ejs') %>
+        <!-- Page Header Start -->
+        <div class="container-fluid bg-secondary mb-5">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ Hàng</h1>
+                <div class="d-inline-flex">
+                    <p class="m-0"><a style="color: black;" href="/">Trang Chủ</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0">Giỏ Hàng</p>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+
+
+        <!-- Cart Start -->
+        <div class="container-fluid pt-5">
+            <div class="row px-xl-5">
+                <div class="col-lg-12 table-responsive mb-5">
+                    <% if (carts.length>0) { %>
+                        <table class="table table-bordered text-center mb-0">
+                            <thead class="bg-secondary text-dark">
+                                <tr>
+                                    <th>Ảnh</th>
+                                    <th style="width: 400px;">Sản Phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th style="width: 120px;">Thành tiền</th>
+                                    <th>Xóa</th>
+                                </tr>
+                            </thead>
+                            <% carts.forEach(item=> { %>
+                                <tbody class="align-middle">
+                                    <tr>
+                                        <td class="align-middle"><img src="<%= item.image %>" alt=""
+                                                style="width: 100px;">
+                                        </td>
+                                        <td class="align-middle">
+                                            <%= item.name %>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                                <div class="input-group-btn">
+                                                    <a href="/decreaseCart/<%= item.id %>"
+                                                        class="btn btn-sm btn-primary btn-minus">
+                                                        <i class="fa fa-minus"></i>
+                                                    </a>
+                                                </div>
+                                                <p style="margin:8px;">
+                                                    <%= item.quantity %>
+                                                </p>
+
+                                                <div class="input-group-btn">
+                                                    <a href="/increaseCart/<%= item.id %>"
+                                                        class="btn btn-sm btn-primary btn-plus">
+                                                        <i class="fa fa-plus"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <% into_money=item.price*item.quantity %>
+                                                <% into_money=into_money.toLocaleString('vi-VN') %>
+                                                    <%= into_money %> đ
+                                        </td>
+                                        <td class="align-middle"><a href="/deleteCart/<%= item.id %>"
+                                                class="btn btn-sm btn-primary"><i class="fa fa-times"></i></a></td>
+                                    </tr>
+                                </tbody>
+                                <% }) %>
+                        </table>
+                        <% } else { %>
+                            <div class="container">
+                                <p style="font-size: 20px;font-weight: bold;text-align: center;">Giỏ hàng
+                                    trống!</p>
+                            </div>
+                            <% } %>
+                </div>
+            </div>
+            <div class="container">
+                <div class="card border-secondary mb-5">
+                    <div class="container">
+                        <h5 style="margin-top: 20px;">CHI TIẾT ĐẶT HÀNG</h5>
+                        <form action="/order" method="POST">
+                            <% if(success.length>0) { %>
+                                <div>
+                                    <p
+                                        style="padding-top: 12px;background-color: #dff0d8;color:#3c763d;margin-bottom: 20px;height: 50px;border-radius: 10px;padding-left: 10px;font-size: 16px;">
+                                        <%= success %>
+                                    </p>
+                                </div>
+                                <% } %>
+                                    <% if(erro.length>0) { %>
+                                        <div>
+                                            <p
+                                                style="padding-top: 12px;background-color: #f2dede;color:#b55947;margin-bottom: 20px;height: 50px;border-radius: 10px;padding-left: 10px;font-size: 16px;">
+                                                <%= erro %>
+                                            </p>
+                                        </div>
+                                        <% } %>
+                                            <input id="user_id" type="text" name="user_id" value="<%= UserId %>"
+                                                hidden>
+                                            <div class="mb-3 mt-3">
+                                                <label style="font-weight: bold;" for="name" class="form-label">Họ
+                                                    tên người
+                                                    nhận:</label>
+                                                <input type="text" class="form-control" id="name" placeholder="..."
+                                                    name="name">
+                                            </div>
+                                            <div class="mb-3 mt-3">
+                                                <label style="font-weight: bold;" for="phone" class="form-label">Số
+                                                    điện
+                                                    thoại:</label>
+                                                <input type="text" class="form-control" id="phone" placeholder="..."
+                                                    name="phone">
+                                            </div>
+                                            <div class="mb-3 mt-3">
+                                                <label style="font-weight: bold;" for="address"
+                                                    class="form-label">Địa chỉ:</label>
+                                                <input type="text" class="form-control" id="address"
+                                                    placeholder="..." name="address">
+                                            </div>
+                                            <div class="mb-3 mt-3">
+                                                <input
+                                                    style="width: 200px;height: 50px;border-radius: 5px;font-weight: bold;color: beige;"
+                                                    type="submit" value="Đặt Hàng" class="btn btn-danger">
+                                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart End -->
+        <%- include('./block/footer.ejs') %>
+            <%- include('./block/script.ejs') %>
+</body>
+
+</html>

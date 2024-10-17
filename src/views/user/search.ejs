@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Teelab</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <%- include('./block/style.ejs') %>
+</head>
+
+<body>
+    <%- include('./block/header.ejs') %>
+        <section class="product-details spad">
+            <div class="container" style="font-size: 25px;margin-bottom: 40px;">SẢN PHẨM CẦN TÌM</div>
+            <div class="container">
+                <div class="row px-xl-5 pb-3">
+                    <% if(products.length>0){ %>
+                        <% products.forEach(function(item){ %>
+                            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                                <div class="card product-item border-0 mb-4">
+                                    <div
+                                        class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid w-100" src="<%= item.image %>" alt="">
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                        <h6 class="text-truncate mb-3">
+                                            <%= item.name %>
+                                        </h6>
+                                        <div class="d-flex justify-content-center">
+                                            <h6>
+                                                <% item.price=item.price.toLocaleString('vi-VN') %>
+                                                    <%= item.price %> đ
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div style="margin: auto;"
+                                        class="card-footer d-flex justify-content-between bg-light border">
+                                        <a href="/detail/<%= item.id %>" class="btn btn-sm text-dark p-0"><i
+                                                class="fas fa-eye text-primary mr-1"></i>Xem ngay</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                                <div class="container">
+                                    <ul class="pagination pagination-lg">
+                                        <% for (let i=1; i <=total_page; i++) { %>
+                                            <% if (i===current_page) { %>
+                                                <li class="page-item active"><a class="page-link"
+                                                        href="/search?product_name=<%= product_name %>&page=<%= i %>">
+                                                        <%= i %>
+                                                    </a></li>
+                                                <% } else { %>
+                                                    <li class="page-item"><a class="page-link"
+                                                            href="/search?product_name=<%= product_name %>&page=<%= i %>">
+                                                            <%= i %>
+                                                        </a></li>
+                                                    <% } %>
+                                                        <% } %>
+                                    </ul>
+                                </div>
+                                <% } else { %>
+                                    <div class="container">
+                                        <p style="font-size: 20px;font-weight: bold;text-align: center;">Không tìm thấy
+                                            sản phẩm</p>
+                                        <% } %>
+                                    </div>
+                </div>
+            </div>
+        </section>
+        <%- include('./block/footer.ejs') %>
+            <%- include('./block/script.ejs') %>
+</body>
+
+</html>

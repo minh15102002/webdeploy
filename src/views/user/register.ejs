@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teelab</title>
+    <%- include('./block/style.ejs') %>
+</head>
+
+<body>
+    <%- include('./block/header.ejs') %>
+        <div class="container" style="background-color: #f0f0f0;border-radius: 30px;margin-top: 50px;">
+            <h2 style="font-size: 20px;margin-bottom: 20px;font-weight: bold;text-align: center;padding-top: 20px;">ĐĂNG
+                KÝ
+            </h2>
+            <form class="form" method="POST" action="/registerUser">
+                <% if(erro.length>0) { %>
+                    <div style="width: 80%;margin: auto;border-radius: 4px;" class="alert alert-danger" role="alert">
+                        <%= erro %>
+                    </div>
+                    <% } %>
+                        <% if(success.length>0) { %>
+                            <div style="width: 80%;margin: auto;border-radius: 4px;" class="alert alert-success"
+                                role="alert">
+                                <%= success %>
+                            </div>
+                            <% } %>
+                                <input hidden type="text" value="1" name="role_id">
+                                <div class="form-group">
+                                    <label
+                                        style="font-size: 18px;margin-bottom: 20px;font-weight: bold;margin-left: 108px;">Họ
+                                        và
+                                        tên:</label>
+                                    <input style="height: 40px;width: 80%;font-size: 14px;color:black;margin: auto;"
+                                        type="text" class="form-control" name="name" placeholder="Nhập họ và tên...">
+                                </div>
+                                <div class="form-group">
+                                    <label
+                                        style="font-size: 18px;margin-bottom: 20px;font-weight: bold;margin-left: 108px;">Email:</label>
+                                    <input style="height: 40px;width: 80%;font-size: 14px;color:black;margin: auto;"
+                                        type="email" class="form-control" name="email" placeholder="Nhập email...">
+                                </div>
+                                <div class="form-group">
+                                    <label
+                                        style="font-size: 18px;margin-bottom: 20px;font-weight: bold;margin-left: 108px;">Tên
+                                        đăng
+                                        nhập:</label>
+                                    <input style="height: 40px;width: 80%;font-size: 14px;color:black;margin: auto;"
+                                        type="text" class="form-control" name="username"
+                                        placeholder="Nhập tên đăng nhập...">
+                                </div>
+                                <div class="form-group">
+                                    <label
+                                        style="font-size: 18px;margin-bottom: 20px;font-weight: bold;margin-left: 108px;">Mật
+                                        khẩu:</label>
+                                    <input style="height: 40px;width: 80%;font-size: 14px;color:black;margin: auto;"
+                                        type="password" class="form-control" name="password"
+                                        placeholder="Nhập mật khẩu...">
+                                </div>
+                                <div class="form-group">
+                                    <label
+                                        style="font-size: 18px;margin-bottom: 20px;font-weight: bold;margin-left: 108px;">Địa
+                                        chỉ:</label>
+                                    <input style="height: 40px;width: 80%;font-size: 14px;color:black;margin: auto;"
+                                        type="text" class="form-control" name="address" placeholder="Nhập địa chỉ...">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input name='register' style="background-color: black;
+                            width: 300px;
+                            height: 45px;
+                            color: white;
+                            margin-bottom: 50px;
+                            border-radius: 5px;
+                            margin-left: 108px;" type="submit" value="Đăng Ký">
+                                </div>
+            </form>
+        </div>
+        <%- include('./block/footer.ejs') %>
+            <%- include('./block/script.ejs') %>
+</body>
+
+</html>

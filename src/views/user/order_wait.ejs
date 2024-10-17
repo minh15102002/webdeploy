@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Teelab</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <%- include('./block/style.ejs') %>
+        <style>
+            a:hover {
+                text-decoration: none;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./block/header.ejs') %>
+        <!-- Page Header Start -->
+        <div class="container-fluid bg-secondary mb-5">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Thông Tin Đơn Hàng</h1>
+                <div class="d-inline-flex">
+                    <p class="m-0"><a style="color: black;" href="/">Trang Chủ</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0">Đơn Hàng Của Tôi</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h3 class="font-weight-semi-bold">Đơn Hàng Đang Chờ Xác Nhận</h3>
+            <div style="margin-top: 50px" class="container-fluid">
+                <% if(orders.length>0) {
+                    orders.forEach(function(order){ %>
+                    <div style="margin-bottom: 30px" class="row">
+                        <div class="col-3">
+                            <img src="<%= order.product_image %>" alt="" width="140px">
+                        </div>
+                        <div class="col-9">
+                            <p>
+                                <%= order.product_name %>
+                            </p>
+                            <p>
+                                x <%= order.quantity %>
+                            </p>
+                            <p style="color: #820813 ">
+                                <% order.product_price=order.product_price.toLocaleString('vi-VN') %>
+                                    <%= order.product_price %> đ
+                            </p>
+                        </div>
+                    </div>
+                    <% let lastProductHandled=false; %>
+                        <% lastProduct.forEach(function(item) { if(item===order.product_id && !lastProductHandled) { %>
+                            <div style="margin-top: 20px;margin-bottom: 30px" class="container-fluid">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div style="font-size: 13px;color:#65bebc"></div>
+                                        <div style="font-size: 13px;color:#ee4d2d">Thanh toán khi nhận hàng
+                                            <%= order.payment %>
+                                        </div>
+                                        <div style="font-size: 11px;width: 200px;">Đơn hàng đang chờ xác nhận
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p style="color:#820813; ">
+                                            <% order.total=order.total.toLocaleString('vi-VN') %>
+                                                Thành tiền: <%= order.total %> đ
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button style="font-size: 15px;margin-left: 10px;border-radius: 5px;"
+                                            type="button" class="btn btn-danger"><a style="color: aliceblue;"
+                                                href="/actionCancelOrder/<%= order.id %>">Huỷ đơn
+                                                hàng</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <% lastProductHandled=true; %>
+                                <% } %>
+                                    <% }); %>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <div class="container">
+                                                    <p style="font-size: 20px;font-weight: bold;text-align: center;">
+                                                        Chưa
+                                                        có đơn hàng chờ xác nhận</p>
+                                                </div>
+                                                <% } %>
+            </div>
+        </div>
+        <%- include('./block/footer.ejs') %>
+            <%- include('./block/script.ejs') %>
+</body>
+
+</html>

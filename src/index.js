@@ -12,15 +12,34 @@ const routeAPIAdmin = require("./routes/api/admin");
 const routeWebUser = require("./routes/web/user");
 const routeWebAdmin = require("./routes/web/admin");
 const connection = require("./config/connect");
+
+const MySQLStore = require('express-mysql-session')(session);
+const options = {
+  // Thông tin kết nối MySQL
+  host: 'autorack.proxy.rlwy.net',
+  port: 13996,
+  user: 'root',
+  password: 'FGVfQAJleEDAdusRjcyEbMRxFyRfQplS',
+  database: 'railway'
+};
+
+const sessionStore = new MySQLStore(options);
+app.use(session({
+  secret: 'keyboard cat', // Thay đổi khóa bí mật
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60000 } // Thời gian sống của cookie (30 phút)
+}));
 connection();
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 },
-  })
-);
+// app.use(
+//   session({
+//     secret: "keyboard cat",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { maxAge: 60000 },
+//   })
+// );
 app.use(flash());
 
 configViewEngine(app);

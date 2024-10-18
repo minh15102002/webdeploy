@@ -16,7 +16,7 @@ router.get("/register", (req, res) => {
   let success = req.flash("success");
   res.render("user/register.ejs", { success, erro });
 });
-router.post("/loginUser", apiAuth.handleLogin);
+router.post("/login", apiAuth.handleLogin);
 router.post("/registerUser", apiAuth.handleRegister);
 router.get("/logout", (req, res) => {
   res.cookie("token", "", { maxAge: 0 });

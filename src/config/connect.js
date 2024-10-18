@@ -7,7 +7,10 @@ const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize('railway', 'root', 'FGVfQAJleEDAdusRjcyEbMRxFyRfQplS', {
   host: 'autorack.proxy.rlwy.net',
   dialect: 'mysql',
-  port: 3306,
+  port: 13996,
+  dialectOptions: {
+    connectTimeout: 60000, // Tăng thời gian chờ lên 60 giây (60000ms)
+},
 });
 const connection = async () => {
   try {

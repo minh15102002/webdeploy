@@ -1,10 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "db_ban_dong_ho",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "password": "FGVfQAJleEDAdusRjcyEbMRxFyRfQplS",
+    "database": "railway",
+    "host": "autorack.proxy.rlwy.net",
+    "dialect": "mysql",
+    "port":  13996
   },
   "test": {
     "username": "root",
